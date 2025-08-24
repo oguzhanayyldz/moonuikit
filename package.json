@@ -1,0 +1,58 @@
+{
+  "name": "moonuikit",
+  "version": "1.0.0",
+  "description": "Open-source React UI components library with modern design",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=packages/moonui",
+    "build": "npm run build --workspace=packages/moonui",
+    "test": "npm run test --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "prepare": "husky install",
+    "example:next": "npm run dev --workspace=examples/nextjs-app",
+    "example:vite": "npm run dev --workspace=examples/vite-react"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oguzhanayyldz/moonuikit.git"
+  },
+  "keywords": [
+    "react",
+    "ui-components",
+    "design-system",
+    "tailwindcss",
+    "radix-ui",
+    "nextjs",
+    "typescript",
+    "open-source"
+  ],
+  "author": "Oğuzhan Ayyıldız",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oguzhanayyldz/moonuikit/issues"
+  },
+  "homepage": "https://github.com/oguzhanayyldz/moonuikit#readme",
+  "devDependencies": {
+    "prettier": "^3.0.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^14.0.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}

@@ -1,0 +1,4 @@
+Component Analysis Report
+========================
+
+Analyzing components in /src/components/ui/

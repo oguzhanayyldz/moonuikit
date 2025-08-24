@@ -1,0 +1,124 @@
+{
+  "name": "@moontra/moonui",
+  "version": "2.3.3",
+  "description": "Premium React component library with modern design and customization",
+  "author": "MoonUI",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oguzhanayyldz/moonuikit.git"
+  },
+  "homepage": "https://github.com/oguzhanayyldz/moonuikit#readme",
+  "bugs": {
+    "url": "https://github.com/oguzhanayyldz/moonuikit/issues"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "unpkg": "dist/index.global.js",
+  "jsdelivr": "dist/index.global.js",
+  "sideEffects": false,
+  "files": [
+    "dist/**",
+    "src/**",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./components/*": {
+      "source": "./src/components/ui/*.tsx",
+      "import": "./dist/components/ui/*.mjs",
+      "require": "./dist/components/ui/*.js"
+    }
+  },
+  "keywords": [
+    "ui",
+    "components",
+    "design-system",
+    "react",
+    "nextjs",
+    "tailwindcss",
+    "radix-ui",
+    "open-source",
+    "mit-license",
+    "free-components",
+    "community-driven"
+  ],
+  "scripts": {
+    "dev": "npm run build -- --watch",
+    "build": "npm run build:js && npm run build:dts && node scripts/postbuild.js",
+    "build:js": "tsup src/index.tsx --format esm,cjs",
+    "build:dts": "tsup src/index.tsx --format esm,cjs --dts-only",
+    "lint": "eslint src --ext .ts,.tsx",
+    "clean": "rm -rf dist",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,md}\""
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0",
+    "tailwindcss": "^3.0.0 || ^4.0.0"
+  },
+  "dependencies": {
+    "@radix-ui/react-accordion": "^1.2.11",
+    "@radix-ui/react-alert-dialog": "^1.1.10",
+    "@radix-ui/react-aspect-ratio": "^1.1.7",
+    "@radix-ui/react-avatar": "^1.1.10",
+    "@radix-ui/react-checkbox": "^1.3.2",
+    "@radix-ui/react-dialog": "^1.1.14",
+    "@radix-ui/react-dropdown-menu": "^2.1.15",
+    "@radix-ui/react-hover-card": "^1.1.14",
+    "@radix-ui/react-label": "^2.1.7",
+    "@radix-ui/react-menubar": "^1.1.15",
+    "@radix-ui/react-navigation-menu": "^1.2.13",
+    "@radix-ui/react-popover": "^1.1.14",
+    "@radix-ui/react-select": "^2.2.5",
+    "@radix-ui/react-separator": "^1.1.7",
+    "@radix-ui/react-slider": "^1.3.5",
+    "@radix-ui/react-slot": "^1.2.3",
+    "@radix-ui/react-switch": "^1.2.5",
+    "@radix-ui/react-tabs": "^1.1.12",
+    "@radix-ui/react-toast": "^1.2.14",
+    "@radix-ui/react-tooltip": "^1.2.7",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.0.0",
+    "framer-motion": "^12.23.6",
+    "lucide-react": "^0.525.0",
+    "tailwind-merge": "^2.5.0",
+    "date-fns": "^3.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.16.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^8.39.0",
+    "eslint-config-next": "^13.4.9",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-tailwindcss": "^3.13.0",
+    "glob": "^11.0.3",
+    "postcss": "^8.5.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^3.4.17",
+    "tsup": "^7.1.0",
+    "typescript": "^5.1.6"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/oguzhanayyldz"
+  },
+  "contributors": [
+    {
+      "name": "Oğuzhan Ayyıldız",
+      "url": "https://github.com/oguzhanayyldz"
+    }
+  ]
+}
