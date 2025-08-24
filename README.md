@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://moonui.design/logo.svg" alt="MoonUI Logo" width="120" height="120">
+  <img src="https://moonui.dev/logo.svg" alt="MoonUI Logo" width="120" height="120">
   
   # MoonUI Kit
   
