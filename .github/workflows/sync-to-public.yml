@@ -1,0 +1,91 @@
+name: Sync to Public Repository
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/moonui/**'
+      - 'src/app/docs/**'
+      - 'scripts/sync/**'
+  workflow_dispatch: # Manuel tetikleme için
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout private repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Setup Git
+        run: |
+          git config --global user.name "MoonUI Bot"
+          git config --global user.email "bot@moonui.design"
+      
+      - name: Clone public repo
+        run: |
+          git clone https://${{ secrets.PUBLIC_REPO_TOKEN }}@github.com/oguzhanayyldz/moonuikit.git public-repo
+      
+      - name: Clean public repo
+        run: |
+          cd public-repo
+          # Preserve git history and important files
+          find . -maxdepth 1 ! -name '.git' ! -name '.' ! -name '..' -exec rm -rf {} +
+      
+      - name: Copy free components
+        run: |
+          # Copy moonui package (free components)
+          mkdir -p public-repo/packages
+          cp -r packages/moonui public-repo/packages/
+          
+          # Remove Pro component references
+          node scripts/sync/clean-pro-refs.js public-repo
+      
+      - name: Copy free documentation
+        run: |
+          # Copy only free component docs
+          node scripts/sync/copy-free-docs.js public-repo
+      
+      - name: Update package.json for public
+        run: |
+          node scripts/sync/update-public-package.js public-repo
+      
+      - name: Copy examples
+        run: |
+          # Copy example projects if they exist
+          if [ -d "examples" ]; then
+            cp -r examples public-repo/
+          fi
+      
+      - name: Generate README for public repo
+        run: |
+          node scripts/sync/generate-public-readme.js public-repo
+      
+      - name: Copy community files
+        run: |
+          # Copy community templates and files
+          cp -r scripts/sync/community-templates/* public-repo/
+      
+      - name: Commit and push changes
+        working-directory: public-repo
+        run: |
+          git add -A
+          git commit -m "🔄 Sync from private repo: ${{ github.sha }}" || echo "No changes to commit"
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.PUBLIC_REPO_TOKEN }}
+      
+      - name: Create sync report
+        if: success()
+        run: |
+          echo "✅ Successfully synced to public repository"
+          echo "📦 Components synced: $(ls -1 public-repo/packages/moonui/src/components/ui | wc -l)"
+          echo "📄 Docs synced: $(find public-repo/docs -name "*.md" 2>/dev/null | wc -l || echo 0)"
